@@ -140,7 +140,7 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
         ..addValue('${package.likeCount}')
         ..addValue('${package.starCount}')
         ..addValue('${package.forkCount}')
-        ..addValue('${package.issueCount}')
+        ..addValue('[${package.issueCount}](${package.repositoryUrl}/issues)')
         ..addValue('[@${package.owner}](https://github.com/${package.owner})')
         ..addValue(
             '[${package.publisher}](https://pub.dev/publishers/${package.publisher}/packages)')

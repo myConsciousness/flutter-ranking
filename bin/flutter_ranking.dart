@@ -55,7 +55,7 @@ Future<void> _writeHistoryFile(
         ..addValue(package.owner)
         ..addValue(package.publisher)
         ..addValue(package.license)
-        ..addValue(package.updatedAt.toIso8601String()),
+        ..addValue(package.updatedAt.toUtc().toIso8601String()),
     );
 
     rank++;
@@ -136,7 +136,7 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
         ..addValue(package.description)
         ..addValue(
             '[${package.version}](https://pub.dev/packages/${package.name}/versions)')
-        ..addValue('${package.popularity}')
+        ..addValue('${package.popularity.toStringAsFixed(5)}%')
         ..addValue('${package.likeCount}')
         ..addValue('${package.starCount}')
         ..addValue('${package.forkCount}')
@@ -145,8 +145,7 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
         ..addValue(
             '[${package.publisher}](https://pub.dev/publishers/${package.publisher}/packages)')
         ..addValue(package.license)
-        ..addValue(
-            '[![Last Commits](https://img.shields.io/github/last-commit/${package.owner}/${package.name}?logo=git&logoColor=white)](https://github.com/${package.owner}/${package.name}/commits/main)'),
+        ..addValue(package.updatedAt.toUtc().toIso8601String()),
     );
 
     rank++;

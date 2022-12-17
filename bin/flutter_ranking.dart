@@ -85,7 +85,7 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
 
 **Show some ❤️ and star the repo to support the project!**
 
-## Last Updated (UTC): ${now.toUtc().toIso8601String()}
+## Last Updated (UTC): ${now.toUtc().toIso8601String()} 🚀
 
 ''');
 

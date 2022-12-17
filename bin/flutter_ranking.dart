@@ -136,21 +136,15 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
         ..addValue(package.description)
         ..addValue(
             '[${package.version}](https://pub.dev/packages/${package.name}/versions)')
-        ..addValue(
-            '![Popularity](https://img.shields.io/pub/popularity/${package.name}?label=Pub%20Popularity&style=fflat-squaree)')
-        ..addValue(
-            '![Likes](https://img.shields.io/pub/likes/${package.name}?label=Pub%20Likes&style=fflat-squaree)')
-        ..addValue(
-            '[![Stars](https://img.shields.io/github/stars/${package.owner}/${package.name}?logo=github&logoColor=white)](https://github.com/${package.owner}/${package.name})')
-        ..addValue(
-            '[![Forks](https://img.shields.io/github/forks/${package.owner}/${package.name}?logo=github&logoColor=white)](https://github.com/${package.owner}/${package.name})')
-        ..addValue(
-            '[![Issues](https://img.shields.io/github/issues/${package.owner}/${package.name}?logo=github&logoColor=white)](https://github.com/${package.owner}/${package.name})')
+        ..addValue('${package.popularity}')
+        ..addValue('${package.likeCount}')
+        ..addValue('${package.starCount}')
+        ..addValue('${package.forkCount}')
+        ..addValue('${package.issueCount}')
         ..addValue('[@${package.owner}](https://github.com/${package.owner})')
         ..addValue(
             '[${package.publisher}](https://pub.dev/publishers/${package.publisher}/packages)')
-        ..addValue(
-            '[![License](https://img.shields.io/github/license/${package.owner}/${package.name}?logo=open-source-initiative&logoColor=green)](https://github.com/${package.owner}/${package.name}/blob/main/LICENSE)')
+        ..addValue(package.license)
         ..addValue(
             '[![Last Commits](https://img.shields.io/github/last-commit/${package.owner}/${package.name}?logo=git&logoColor=white)](https://github.com/${package.owner}/${package.name}/commits/main)'),
     );

@@ -139,7 +139,8 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
         ..addValue(package.description)
         ..addValue(
             '[${package.version}](https://pub.dev/packages/${package.name}/versions)')
-        ..addValue('${package.popularity.toStringAsFixed(5)}%')
+        ..addValue(
+            '${package.popularity == -1 ? 'N/A' : package.popularity.toStringAsFixed(5)}%')
         ..addValue('${package.likeCount}')
         ..addValue('${package.starCount}')
         ..addValue('${package.forkCount}')

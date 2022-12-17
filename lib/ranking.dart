@@ -58,7 +58,9 @@ Future<List<Package>> getListedPackages() async {
         packageInfoJson['latest']['pubspec']['description'],
         packageInfoJson['latest']['pubspec']['version'],
         repository,
-        packageScore.popularityScore! * 100,
+        packageScore.popularityScore != null
+            ? packageScore.popularityScore! * 100
+            : -1,
         packageScore.likeCount,
         repositoryJson['stargazers_count'],
         repositoryJson['forks_count'],

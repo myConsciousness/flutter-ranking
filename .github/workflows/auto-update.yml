@@ -16,6 +16,8 @@ jobs:
 
       - name: Build Ranking
         run: dart run
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

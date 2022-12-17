@@ -1,4 +1,6 @@
-class TsvRecord {
+import 'record.dart';
+
+class TsvRecord implements Record {
   /// Returns the new instance of [TsvRecord].
   TsvRecord();
 

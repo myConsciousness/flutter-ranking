@@ -129,7 +129,7 @@ Currently, the top 3,000 packages are listed in this ranking, sorted by populari
   for (final package in packages) {
     _write(
       readmeFile,
-      TsvRecord()
+      TableRecord()
         ..addValue('$rank')
         ..addValue(package.name)
         ..addValue(package.description)

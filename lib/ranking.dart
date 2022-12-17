@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:pub_api_client/pub_api_client.dart';
 
 final pub = PubClient();
-const _bearerToken = String.fromEnvironment('BEARER_TOKEN');
+final _bearerToken = Platform.environment['BEARER_TOKEN'];
 
 const _maxCount = 5;
 

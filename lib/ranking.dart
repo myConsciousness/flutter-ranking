@@ -85,6 +85,10 @@ String _getOwner(final String repository) {
 
   final start = repository.indexOf('/', 'https://github.com'.length) + 1;
 
+  if (start == -1) {
+    return '';
+  }
+
   return repository.substring(
     start,
     repository.indexOf('/', start),

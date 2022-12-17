@@ -48,9 +48,9 @@ Future<List<Package>> getListedPackages() async {
       final publisher = await pub.packagePublisher(result.package);
 
       final package = Package(
-        packageInfoJson['latest']['name'],
-        packageInfoJson['latest']['description'],
-        packageInfoJson['latest']['version'],
+        packageInfoJson['latest']['pubspec']['name'],
+        packageInfoJson['latest']['pubspec']['description'],
+        packageInfoJson['latest']['pubspec']['version'],
         repository,
         packageScore.popularityScore! * 100,
         packageScore.likeCount,

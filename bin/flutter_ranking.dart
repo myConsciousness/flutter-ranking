@@ -81,7 +81,7 @@ I respect all OSS developers who are developing great packages! 🫡
 
 This project aims to visualize the ranking of OSS packages published on [pub.dev](https://pub.dev) to further invigorate the community and promote competition.
 
-Currently, the top 3,000 packages are listed in this ranking, sorted by popularity index as evaluated by [pub.dev](https://pub.dev). This process is fully automated and ranking is recalculated daily per 3 hours based on UTC time ✨
+Currently, the top 1,024 packages are listed in this ranking, sorted by popularity index as evaluated by [pub.dev](https://pub.dev). This process is fully automated and ranking is recalculated daily per 3 hours based on UTC time ✨
 
 **Show some ❤️ and star the repo to support the project!**
 

@@ -8,7 +8,7 @@ import 'package:pub_api_client/pub_api_client.dart';
 final pub = PubClient();
 final _bearerToken = Platform.environment['BEARER_TOKEN'];
 
-const _maxCount = 3000;
+const _maxCount = 1024;
 
 Future<List<Package>> getListedPackages() async {
   final packages = <Package>[];

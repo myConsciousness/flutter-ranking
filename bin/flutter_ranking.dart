@@ -5,6 +5,7 @@ import 'package:flutter_ranking/package.dart';
 import 'package:flutter_ranking/tsv_record.dart';
 
 void main(List<String> arguments) async {
+  print(Platform.environment);
   final packages = await ranking.getListedPackages();
   final now = DateTime.now();
 

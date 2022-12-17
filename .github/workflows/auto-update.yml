@@ -1,4 +1,4 @@
-name: Test
+name: Auto Update
 
 on:
   workflow_dispatch:
@@ -14,5 +14,9 @@ jobs:
       - name: Install dependencies
         run: dart pub get
 
-      - name: Hello world
+      - name: Build Ranking
         run: dart run
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Yay, Flutter Ranking has been updated 👑✨

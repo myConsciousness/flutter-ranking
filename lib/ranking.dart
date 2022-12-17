@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:actions_toolkit_dart/core.dart' as core;
 import 'package:flutter_ranking/package.dart';
 import 'package:http/http.dart';
-
-import 'tmp/models/search_order.dart';
-import 'tmp/pub_api_client_base.dart';
+import 'package:pub_api_client/pub_api_client.dart';
 
 final pub = PubClient();
 final _bearerToken = core.getInput(name: 'BEARER_TOKEN');
@@ -28,8 +26,12 @@ Future<List<Package>> getListedPackages() async {
         return packages;
       }
 
-      final packageInfo = await pub.packageInfo(result.package);
-      final repository = packageInfo.latest.pubspec.repository;
+      final packageInfoResponse = await get(
+        Uri.parse('https://pub.dartlang.org/api/packages/${result.package}'),
+      );
+
+      final packageInfoJson = jsonDecode(packageInfoResponse.body);
+      final repository = packageInfoJson['latest']['pubspec']['repository'];
 
       if (repository == null || !repository.startsWith('https://github.com/')) {
         continue;
@@ -46,9 +48,9 @@ Future<List<Package>> getListedPackages() async {
       final publisher = await pub.packagePublisher(result.package);
 
       final package = Package(
-        packageInfo.name,
-        packageInfo.description,
-        packageInfo.version,
+        packageInfoJson['latest']['name'],
+        packageInfoJson['latest']['description'],
+        packageInfoJson['latest']['version'],
         repository,
         packageScore.popularityScore! * 100,
         packageScore.likeCount,

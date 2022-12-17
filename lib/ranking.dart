@@ -53,9 +53,17 @@ Future<List<Package>> getListedPackages() async {
         continue;
       }
 
+      final String? description =
+          packageInfoJson['latest']['pubspec']['description'];
+
+      if (description == null) {
+        //! Include only package with description.
+        continue;
+      }
+
       final package = Package(
         packageInfoJson['latest']['pubspec']['name'],
-        packageInfoJson['latest']['pubspec']['description'],
+        description.replaceAll('\n', ''),
         packageInfoJson['latest']['pubspec']['version'],
         repository,
         packageScore.popularityScore != null

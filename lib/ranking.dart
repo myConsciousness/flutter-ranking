@@ -47,6 +47,12 @@ Future<List<Package>> getListedPackages() async {
       final packageScore = await pub.packageScore(result.package);
       final publisher = await pub.packagePublisher(result.package);
 
+      final license = repositoryJson['license']['spdx_id'];
+      if (license == null) {
+        //! Include only approved package.
+        continue;
+      }
+
       final package = Package(
         packageInfoJson['latest']['pubspec']['name'],
         packageInfoJson['latest']['pubspec']['description'],
@@ -59,7 +65,7 @@ Future<List<Package>> getListedPackages() async {
         repositoryJson['owner']['login'],
         repositoryJson['open_issues_count'],
         publisher.publisherId ?? '',
-        repositoryJson['license']['spdx_id'],
+        license,
         DateTime.parse(repositoryJson['pushed_at']),
       );
 

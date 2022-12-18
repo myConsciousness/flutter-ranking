@@ -18,9 +18,9 @@ void main(List<String> arguments) async {
   final now = DateTime.now();
   final today = DateFormat('yyyy-MM-dd').format(now);
 
-  final historyFolder = File('./history/${rankingType.fileName}/$today');
+  final historyFolder = Directory('./history/${rankingType.fileName}/$today');
   if (!historyFolder.existsSync()) {
-    historyFolder.createSync();
+    historyFolder.createSync(recursive: true);
   }
 
   await writer.writeHistoryFile(

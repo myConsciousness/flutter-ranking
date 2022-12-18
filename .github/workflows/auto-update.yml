@@ -1,0 +1,36 @@
+name: Auto Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Build Ranking for Flutter Packages
+        run: dart run
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          RANKING_TYPE: flutter
+
+      - name: Build Ranking for Flutter Widgets
+        run: dart run
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          RANKING_TYPE: flutterWidget
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Yay, Flutter Ranking has been updated 👑✨
+          commit_user_name: myConsciousness
+          commit_user_email: contact@shinyakato.dev
+          commit_author: myConsciousness <contact@shinyakato.dev>

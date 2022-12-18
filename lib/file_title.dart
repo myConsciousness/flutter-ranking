@@ -19,7 +19,6 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 
 - [Ranking for All Flutter Packages](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter.md)
 - [Ranking for Flutter Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter_widget.md)
-- [Ranking for Dart SDK Only](https://github.com/myConsciousness/flutter-ranking/blob/main/results/dart.md)
 
 > **Notification:**</br>
 > Last Updated (UTC): ${now.toUtc().toIso8601String()}
@@ -34,8 +33,6 @@ String _getH1Title(final RankingType type) {
       return 'Flutter Ranking';
     case RankingType.flutterWidget:
       return 'Flutter Ranking for Flutter Widgets';
-    case RankingType.dart:
-      return 'Flutter Ranking for Dart SDK Only';
   }
 }
 
@@ -45,8 +42,6 @@ String _getH2Title(final RankingType type) {
       return 'Flutter Packages';
     case RankingType.flutterWidget:
       return 'Flutter Widgets';
-    case RankingType.dart:
-      return 'Dart SDK Only';
   }
 }
 
@@ -56,7 +51,5 @@ String _getPackageCount(final RankingType type) {
       return '1,024';
     case RankingType.flutterWidget:
       return '512';
-    case RankingType.dart:
-      return '64';
   }
 }

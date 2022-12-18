@@ -1,7 +1,6 @@
 enum RankingType {
   flutter('sdk:dart sdk:flutter', 1024, 'flutter'),
-  flutterWidget('-sdk:dart sdk:flutter', 512, 'flutter_widget'),
-  dart('sdk:dart -sdk:flutter', 64, 'dart');
+  flutterWidget('-sdk:dart sdk:flutter', 512, 'flutter_widget');
 
   /// The search query.
   final String query;
@@ -24,8 +23,6 @@ enum RankingType {
         return flutter;
       case 'flutterWidget':
         return flutterWidget;
-      case 'dart':
-        return dart;
       default:
         throw UnsupportedError('Unsupported type [$code]');
     }

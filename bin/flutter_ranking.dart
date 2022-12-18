@@ -8,8 +8,8 @@ import 'package:flutter_ranking/tsv_record.dart';
 
 void main(List<String> arguments) async {
   final packages = await ranking.getListedPackages();
-  final now = DateTime.now();
 
+  final now = DateTime.now();
   await _writeHistoryFile(packages, now);
   await _writeReadmeFile(packages, now);
 }
@@ -35,7 +35,8 @@ Future<void> _writeHistoryFile(
       ..addValue('Owner')
       ..addValue('Publisher')
       ..addValue('License')
-      ..addValue('Last Commit'),
+      ..addValue('Last Commit')
+      ..addValue('Repository URL'),
   );
 
   int rank = 1;
@@ -55,7 +56,8 @@ Future<void> _writeHistoryFile(
         ..addValue(package.owner)
         ..addValue(package.publisher)
         ..addValue(package.license)
-        ..addValue(package.updatedAt.toUtc().toIso8601String()),
+        ..addValue(package.updatedAt.toUtc().toIso8601String())
+        ..addValue(package.repositoryUrl),
     );
 
     rank++;

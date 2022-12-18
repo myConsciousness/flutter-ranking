@@ -1,7 +1,7 @@
 enum RankingType {
   flutter('sdk:dart sdk:flutter', 1024, 'flutter'),
   flutterWidget('-sdk:dart sdk:flutter', 512, 'flutter_widget'),
-  dart('sdk:dart -sdk:flutter', 256, 'dart');
+  dart('sdk:dart -sdk:flutter', 64, 'dart');
 
   /// The search query.
   final String query;

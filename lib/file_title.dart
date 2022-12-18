@@ -57,6 +57,6 @@ String _getPackageCount(final RankingType type) {
     case RankingType.flutterWidget:
       return '512';
     case RankingType.dart:
-      return '256';
+      return '64';
   }
 }

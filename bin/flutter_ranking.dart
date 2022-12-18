@@ -18,7 +18,9 @@ Future<void> _writeHistoryFile(
   final List<Package> packages,
   final DateTime now,
 ) async {
-  final historyFile = File('./history/${now.toUtc().toIso8601String()}.tsv');
+  final historyFile = File(
+    './history/dart_n_flutter/${now.toUtc().toIso8601String()}.tsv',
+  );
 
   _write(
     historyFile,
@@ -77,7 +79,7 @@ Future<void> _writeReadmeFile(
       '''[![GitHub Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=ff69b4)](https://github.com/sponsors/myConsciousness)
 [![GitHub Sponsor](https://img.shields.io/static/v1?label=Maintainer&message=myConsciousness&logo=GitHub&color=00acee)](https://github.com/myConsciousness)
 
-# Flutter Ranking 👑✨
+# ✨👑 Flutter Ranking 👑✨
 
 I respect all OSS developers who are developing great packages! 🫡
 
@@ -90,7 +92,7 @@ Currently, the top 1,024 packages are listed in this ranking, sorted by populari
 > **Notification:**</br>
 > Last Updated (UTC): ${now.toUtc().toIso8601String()}
 
-## Content 🎉
+## Dart & Flutter 🎉
 
 ''');
 

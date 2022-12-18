@@ -20,6 +20,13 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 - [Ranking for All Flutter Packages](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter.md)
 - [Ranking for Flutter Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter_widget.md)
 
+> **Warning**</br>
+> Packages that meet the following criteria will not be listed.
+> </br></br>
+> - Repository URL not specified in `pubspec.yaml` or invalid URL.</br>
+> - License does not exist.</br>
+> - Description does not exist.
+
 > **Notification:**</br>
 > Last Updated (UTC): ${now.toUtc().toIso8601String()}
 

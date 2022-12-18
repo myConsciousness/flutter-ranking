@@ -8,21 +8,22 @@ import 'package:pub_api_client/pub_api_client.dart';
 final pub = PubClient();
 final _bearerToken = Platform.environment['BEARER_TOKEN'];
 
-const _maxCount = 1024;
-
-Future<List<Package>> getListedPackages() async {
+Future<List<Package>> getListedPackages({
+  required String query,
+  required int maxResults,
+}) async {
   final packages = <Package>[];
 
   int page = 1;
   while (true) {
     final searchResults = await pub.search(
-      '',
+      query,
       page: page,
       sort: SearchOrder.popularity,
     );
 
     for (final result in searchResults.packages) {
-      if (packages.length >= _maxCount) {
+      if (packages.length >= maxResults) {
         return packages;
       }
 
@@ -81,7 +82,7 @@ Future<List<Package>> getListedPackages() async {
 
       packages.add(package);
 
-      print('Progress: ${((packages.length / _maxCount) * 100) ~/ 1}%');
+      print('Progress: ${((packages.length / maxResults) * 100) ~/ 1}%');
     }
 
     page++;

@@ -8,6 +8,7 @@ environment:
 dependencies:
   actions_toolkit_dart: ^0.5.1
   http: ^0.13.1
+  intl: ^0.18.0
   pub_api_client: ^2.2.1
 
 dev_dependencies:

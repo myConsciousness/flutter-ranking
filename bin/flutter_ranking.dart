@@ -15,7 +15,7 @@ void main(List<String> arguments) async {
     maxResults: rankingType.maxResults,
   );
 
-  final now = DateTime.now();
+  final now = DateTime.now().toUtc();
   final today = DateFormat('yyyy-MM-dd').format(now);
 
   final historyFolder = Directory('./history/${rankingType.fileName}/$today');

@@ -1,4 +1,4 @@
-name: Auto Update Flutter
+name: Auto Update Flutter Widgets
 
 on:
   workflow_dispatch:

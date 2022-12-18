@@ -22,8 +22,8 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 
 > **Warning**</br>
 > Packages that meet the following criteria will not be listed.
-> </br></br>
-> - Repository URL not specified in `pubspec.yaml` or invalid URL.</br>
+> </br>
+> - Repository URL does not specified in `pubspec.yaml` or invalid URL.</br>
 > - License does not exist.</br>
 > - Description does not exist.
 

@@ -1,4 +1,4 @@
-name: Auto Update
+name: Auto Update Flutter
 
 on:
   workflow_dispatch:
@@ -20,6 +20,7 @@ jobs:
         run: dart run
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          RANKING_TYPE: flutter
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

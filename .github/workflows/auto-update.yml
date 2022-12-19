@@ -16,17 +16,23 @@ jobs:
       - name: Install dependencies
         run: dart pub get
 
-      - name: Build Ranking for Flutter Packages
+      - name: Build Flutter Ranking
         run: dart run
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-          RANKING_TYPE: flutter
+          RANKING_TYPE: all
 
-      - name: Build Ranking for Flutter Widgets
+      - name: Build Widget Ranking
         run: dart run
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-          RANKING_TYPE: flutterWidget
+          RANKING_TYPE: only_flutter_widget
+
+      - name: Build Dart Ranking
+        run: dart run
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          RANKING_TYPE: exclude_flutter_widget
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:

@@ -19,6 +19,7 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 
 - [Ranking for All Flutter Packages](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter.md)
 - [Ranking for Flutter Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter_widget.md)
+- [Ranking for Dart Packages without Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/dart.md)
 
 > **Warning**</br>
 > Packages that meet the following criteria will not be listed.
@@ -36,27 +37,32 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 
 String _getH1Title(final RankingType type) {
   switch (type) {
-    case RankingType.flutter:
+    case RankingType.all:
       return 'Flutter Ranking';
-    case RankingType.flutterWidget:
-      return 'Flutter Ranking for Flutter Widgets';
+    case RankingType.onlyFlutterWidget:
+      return 'Flutter Widget Ranking';
+    case RankingType.excludeFlutterWidget:
+      return 'Dart Ranking';
   }
 }
 
 String _getH2Title(final RankingType type) {
   switch (type) {
-    case RankingType.flutter:
-      return 'Flutter Packages';
-    case RankingType.flutterWidget:
+    case RankingType.all:
+      return 'All Flutter Packages';
+    case RankingType.onlyFlutterWidget:
       return 'Flutter Widgets';
+    case RankingType.excludeFlutterWidget:
+      return 'Dart Packages';
   }
 }
 
 String _getPackageCount(final RankingType type) {
   switch (type) {
-    case RankingType.flutter:
+    case RankingType.all:
       return '1,024';
-    case RankingType.flutterWidget:
+    case RankingType.onlyFlutterWidget:
+    case RankingType.excludeFlutterWidget:
       return '512';
   }
 }

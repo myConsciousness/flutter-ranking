@@ -38,7 +38,7 @@ void main(List<String> arguments) async {
     now,
   );
 
-  if (rankingType == RankingType.flutter) {
+  if (rankingType == RankingType.all) {
     await writer.writeResultFile(
       rankingType,
       File('README.md'),

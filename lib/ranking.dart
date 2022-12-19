@@ -3,9 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_ranking/package.dart';
 import 'package:http/http.dart';
-import 'package:pub_api_client/pub_api_client.dart';
 
-final pub = PubClient();
 final _bearerToken = Platform.environment['BEARER_TOKEN'];
 
 Future<List<Package>> getListedPackages({
@@ -16,19 +14,29 @@ Future<List<Package>> getListedPackages({
 
   int page = 1;
   while (true) {
-    final searchResults = await pub.search(
-      query,
-      page: page,
-      sort: SearchOrder.popularity,
+    final searchResults = await get(
+      Uri.https(
+        'pub.dartlang.org',
+        '/api/search',
+        {
+          'q': query,
+          'page': '$page',
+          'sort': 'popularity',
+        },
+      ),
     );
 
-    for (final result in searchResults.packages) {
+    final searchResultsJson = jsonDecode(searchResults.body);
+
+    for (final result in searchResultsJson['packages']) {
       if (packages.length >= maxResults) {
         return packages;
       }
 
+      final packageName = result['package'];
+
       final packageInfoResponse = await get(
-        Uri.parse('https://pub.dartlang.org/api/packages/${result.package}'),
+        Uri.parse('https://pub.dartlang.org/api/packages/$packageName'),
       );
 
       final packageInfoJson = jsonDecode(packageInfoResponse.body);
@@ -45,8 +53,21 @@ Future<List<Package>> getListedPackages({
 
       final repositoryJson = jsonDecode(githubRepository.body);
 
-      final packageScore = await pub.packageScore(result.package);
-      final publisher = await pub.packagePublisher(result.package);
+      final packageScoreJson = await get(
+        Uri.parse(
+          'https://pub.dartlang.org/api/packages/$packageName/score',
+        ),
+      );
+
+      final packageScore = jsonDecode(packageScoreJson.body);
+
+      final publisherJson = await get(
+        Uri.parse(
+          'https://pub.dartlang.org/api/packages/$packageName/publisher',
+        ),
+      );
+
+      final publisher = jsonDecode(publisherJson.body);
 
       final license = repositoryJson['license'];
       if (license == null) {
@@ -67,15 +88,15 @@ Future<List<Package>> getListedPackages({
         description.replaceAll('\n', ''),
         packageInfoJson['latest']['pubspec']['version'],
         repository,
-        packageScore.popularityScore != null
-            ? packageScore.popularityScore! * 100
+        packageScore['popularityScore'] != null
+            ? packageScore['popularityScore'] * 100
             : -1,
-        packageScore.likeCount,
+        packageScore['likeCount'],
         repositoryJson['stargazers_count'],
         repositoryJson['forks_count'],
         repositoryJson['owner']['login'],
         repositoryJson['open_issues_count'],
-        publisher.publisherId ?? '',
+        publisher['publisherId'] ?? '',
         license['spdx_id'],
         DateTime.parse(repositoryJson['pushed_at']),
       );

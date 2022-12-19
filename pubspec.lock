@@ -8,13 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "38.0.0"
-  actions_toolkit_dart:
-    dependency: "direct main"
-    description:
-      name: actions_toolkit_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
   analyzer:
     dependency: transitive
     description:
@@ -91,7 +84,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "2.2.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -154,7 +147,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.6.0"
+    version: "4.7.0"
   lints:
     dependency: "direct dev"
     description:
@@ -197,13 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  oauth2:
+  oauth1:
     dependency: transitive
     description:
-      name: oauth2
+      name: oauth1
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.0"
   package_config:
     dependency: transitive
     description:
@@ -225,13 +218,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.1"
-  pub_api_client:
-    dependency: "direct main"
-    description:
-      name: pub_api_client
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.1"
   pub_semver:
     dependency: transitive
     description:
@@ -239,20 +225,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
-  pubspec:
-    dependency: transitive
-    description:
-      name: pubspec
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.0"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.0"
   shelf:
     dependency: transitive
     description:
@@ -351,6 +323,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.21"
+  twitter_api_v2:
+    dependency: "direct main"
+    description:
+      name: twitter_api_v2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.7.0"
   typed_data:
     dependency: transitive
     description:
@@ -358,13 +337,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
-  uri:
+  universal_io:
     dependency: transitive
     description:
-      name: uri
+      name: universal_io
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.4"
   vm_service:
     dependency: transitive
     description:

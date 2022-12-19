@@ -19,7 +19,7 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 
 - [Ranking for All Flutter Packages](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter.md)
 - [Ranking for Flutter Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/flutter_widget.md)
-- [Ranking for Dart Packages without Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/dart.md)
+- [Ranking for Dart Packages exclude Widgets](https://github.com/myConsciousness/flutter-ranking/blob/main/results/dart_only.md)
 
 > **Warning**</br>
 > Packages that meet the following criteria will not be listed.

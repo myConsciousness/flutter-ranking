@@ -23,7 +23,7 @@ void main(List<String> arguments) async {
     historyFolder.createSync(recursive: true);
   }
 
-  await writer.writeHistoryFile(
+  writer.writeHistoryFile(
     File(
       './history/${rankingType.fileName}/$today/${now.toUtc().toIso8601String()}.tsv',
     ),
@@ -31,15 +31,20 @@ void main(List<String> arguments) async {
     now,
   );
 
-  await writer.writeResultFile(
+  writer.writeResultFile(
     rankingType,
     File('./results/${rankingType.fileName}.md'),
     packages,
     now,
   );
 
+  writer.writeMatrics(
+    rankingType,
+    packages,
+  );
+
   if (rankingType == RankingType.all) {
-    await writer.writeResultFile(
+    writer.writeResultFile(
       rankingType,
       File('README.md'),
       packages,

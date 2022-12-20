@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_ranking/file_title.dart';
@@ -8,11 +9,11 @@ import 'record.dart';
 import 'table_record.dart';
 import 'tsv_record.dart';
 
-Future<void> writeHistoryFile(
+void writeHistoryFile(
   final File file,
   final List<Package> packages,
   final DateTime now,
-) async {
+) {
   _write(
     file,
     TsvRecord()
@@ -57,12 +58,12 @@ Future<void> writeHistoryFile(
   }
 }
 
-Future<void> writeResultFile(
+void writeResultFile(
   final RankingType type,
   final File file,
   final List<Package> packages,
   final DateTime now,
-) async {
+) {
   file.writeAsStringSync(getTitle(type, now));
 
   _write(
@@ -127,6 +128,56 @@ Future<void> writeResultFile(
 
     rank++;
   }
+}
+
+void writeMatrics(
+  final RankingType type,
+  final List<Package> packages,
+) {
+  final matricsFile = File('./history/matrics.json');
+  final Map<String, dynamic> matrics = jsonDecode(
+    matricsFile.readAsStringSync(),
+  );
+
+  for (final package in packages) {
+    if (matrics.containsKey(package.owner)) {
+      final Map<String, dynamic> ownerPackages = matrics[package.owner];
+      if (ownerPackages.containsKey(package.name)) {
+        final ownerPackage = Map.from(ownerPackages[package.name]);
+
+        ownerPackages[package.name] = {
+          'repository': package.repositoryUrl,
+          'popularity': package.popularity,
+          'like_count': package.likeCount,
+          'star_count': package.starCount,
+          'fork_count': package.forkCount,
+          'notified': ownerPackage['notified'],
+        };
+      } else {
+        ownerPackages[package.name] = {
+          'repository': package.repositoryUrl,
+          'popularity': package.popularity,
+          'like_count': package.likeCount,
+          'star_count': package.starCount,
+          'fork_count': package.forkCount,
+          'notified': false,
+        };
+      }
+    } else {
+      matrics[package.owner] = {
+        package.name: {
+          'repository': package.repositoryUrl,
+          'popularity': package.popularity,
+          'like_count': package.likeCount,
+          'star_count': package.starCount,
+          'fork_count': package.forkCount,
+          'notified': false,
+        }
+      };
+    }
+  }
+
+  matricsFile.writeAsStringSync(jsonEncode(matricsFile));
 }
 
 void _write(final File file, final Record record) =>

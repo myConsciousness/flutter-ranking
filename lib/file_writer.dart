@@ -177,7 +177,7 @@ void writeMatrics(
     }
   }
 
-  matricsFile.writeAsStringSync(jsonEncode(matricsFile));
+  matricsFile.writeAsStringSync(jsonEncode(matrics));
 }
 
 void _write(final File file, final Record record) =>

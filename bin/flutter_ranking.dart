@@ -38,17 +38,17 @@ void main(List<String> arguments) async {
     now,
   );
 
-  writer.writeMatrics(
-    rankingType,
-    packages,
-  );
-
   if (rankingType == RankingType.all) {
     writer.writeResultFile(
       rankingType,
       File('README.md'),
       packages,
       now,
+    );
+
+    writer.writeMatrics(
+      rankingType,
+      packages,
     );
   }
 }

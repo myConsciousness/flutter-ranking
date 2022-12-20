@@ -42,9 +42,7 @@ Future<void> main(List<String> args) async {
         await _twitter.tweets.createTweet(
           text:
               '''Congratulations @kato__shinya! ${_getSentence(listedPackageNames)}
-Thanks for your great work!
-
-#Flutter
+Thanks for your great work for #Flutter community!
 
 https://github.com/myConsciousness/flutter-ranking
 ''',
@@ -99,6 +97,10 @@ List<String> _getNewListedPackages({
 
 String _getSentence(final List<String> packageNames) {
   if (packageNames.length > 1) {
+    if (packageNames.length > 3) {
+      return 'Your packages ${packageNames[0]}, ${packageNames[1]}, ${packageNames[2]} are listed in #FlutterRanking! 👑✨';
+    }
+
     return 'Your packages ${packageNames.join(', ')} are listed in #FlutterRanking! 👑✨';
   }
 

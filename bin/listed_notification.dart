@@ -40,10 +40,11 @@ Future<void> main(List<String> args) async {
         );
 
         await _twitter.tweets.createTweet(
-          text: '''Congratulations @kato__shinya!
-${_getSentence(listedPackageNames)}
+          text:
+              '''Congratulations @kato__shinya! ${_getSentence(listedPackageNames)}
+Thanks for your great work!
 
-Thanks for your great work for #Flutter community!
+#Flutter
 
 https://github.com/myConsciousness/flutter-ranking
 ''',

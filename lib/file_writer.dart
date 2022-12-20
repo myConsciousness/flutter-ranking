@@ -168,7 +168,7 @@ void writeMatricsEachOwners(final DateTime now) {
 
       ownerFile.writeAsStringSync(
         jsonEncode(
-          {now.toIso8601String(): latestMatrics['owner']},
+          {now.toIso8601String(): latestMatrics[owner]},
         ),
       );
     }

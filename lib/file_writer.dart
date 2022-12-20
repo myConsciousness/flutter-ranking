@@ -138,12 +138,15 @@ void writeMatrics(
     latestMatricsFile.readAsStringSync(),
   );
 
+  int rank = 1;
   for (final package in packages) {
     if (matrics.containsKey(package.owner)) {
-      matrics[package.owner][package.name] = _getMatrics(package);
+      matrics[package.owner][package.name] = _getMatrics(rank, package);
     } else {
-      matrics[package.owner] = {package.name: _getMatrics(package)};
+      matrics[package.owner] = {package.name: _getMatrics(rank, package)};
     }
+
+    rank++;
   }
 
   latestMatricsFile.writeAsStringSync(jsonEncode(matrics));
@@ -175,7 +178,8 @@ void writeMatricsEachOwners(final DateTime now) {
   });
 }
 
-Map<String, dynamic> _getMatrics(final Package package) => {
+Map<String, dynamic> _getMatrics(final int rank, final Package package) => {
+      'rank': rank,
       'repository': package.repositoryUrl,
       'popularity': package.popularity,
       'like_count': package.likeCount,

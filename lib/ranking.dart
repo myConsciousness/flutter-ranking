@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:flutter_ranking/package.dart';
 import 'package:http/http.dart';
 
-final _bearerToken = Platform.environment['BEARER_TOKEN'];
-
 Future<List<Package>> getListedPackages({
   required String query,
   required int maxResults,
@@ -137,6 +135,8 @@ Future<Response> _getGitHubRepository(final String repository) async {
       'api.github.com',
       slug,
     ),
-    headers: {'Authorization': 'Bearer $_bearerToken'},
+    headers: {
+      'Authorization': 'Bearer ${Platform.environment['GITHUB_BEARER_TOKEN']}'
+    },
   );
 }

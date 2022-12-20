@@ -131,54 +131,59 @@ void writeResultFile(
 }
 
 void writeMatrics(
-  final RankingType type,
   final List<Package> packages,
 ) {
-  final matricsFile = File('./history/matrics.json');
+  final latestMatricsFile = File('./matrics/__latest__.json');
   final Map<String, dynamic> matrics = jsonDecode(
-    matricsFile.readAsStringSync(),
+    latestMatricsFile.readAsStringSync(),
   );
 
   for (final package in packages) {
     if (matrics.containsKey(package.owner)) {
-      final Map<String, dynamic> ownerPackages = matrics[package.owner];
-      if (ownerPackages.containsKey(package.name)) {
-        final ownerPackage = Map.from(ownerPackages[package.name]);
-
-        ownerPackages[package.name] = {
-          'repository': package.repositoryUrl,
-          'popularity': package.popularity,
-          'like_count': package.likeCount,
-          'star_count': package.starCount,
-          'fork_count': package.forkCount,
-          'notified': ownerPackage['notified'],
-        };
-      } else {
-        ownerPackages[package.name] = {
-          'repository': package.repositoryUrl,
-          'popularity': package.popularity,
-          'like_count': package.likeCount,
-          'star_count': package.starCount,
-          'fork_count': package.forkCount,
-          'notified': false,
-        };
-      }
+      matrics[package.owner][package.name] = _getMatrics(package);
     } else {
-      matrics[package.owner] = {
-        package.name: {
-          'repository': package.repositoryUrl,
-          'popularity': package.popularity,
-          'like_count': package.likeCount,
-          'star_count': package.starCount,
-          'fork_count': package.forkCount,
-          'notified': false,
-        }
-      };
+      matrics[package.owner] = {package.name: _getMatrics(package)};
     }
   }
 
-  matricsFile.writeAsStringSync(jsonEncode(matrics));
+  latestMatricsFile.writeAsStringSync(jsonEncode(matrics));
 }
+
+void writeMatricsEachOwners(final DateTime now) {
+  final latestMatricsFile = File('./matrics/__latest__.json');
+  final Map<String, dynamic> latestMatrics = jsonDecode(
+    latestMatricsFile.readAsStringSync(),
+  );
+
+  latestMatrics.forEach((owner, packages) {
+    final ownerFile = File('./matrics/$owner.json');
+
+    if (ownerFile.existsSync()) {
+      final ownerJson = jsonDecode(ownerFile.readAsStringSync());
+      ownerJson[now.toIso8601String()] = latestMatrics[owner];
+
+      ownerFile.writeAsStringSync(jsonEncode(ownerJson));
+    } else {
+      ownerFile.createSync(recursive: true);
+
+      ownerFile.writeAsStringSync(
+        jsonEncode(
+          {now.toIso8601String(): latestMatrics['owner']},
+        ),
+      );
+    }
+  });
+}
+
+Map<String, dynamic> _getMatrics(final Package package) => {
+      'repository': package.repositoryUrl,
+      'popularity': package.popularity,
+      'like_count': package.likeCount,
+      'star_count': package.starCount,
+      'fork_count': package.forkCount,
+      'issue_count': package.issueCount,
+      'publisher': package.publisher,
+    };
 
 void _write(final File file, final Record record) =>
     file.writeAsStringSync(record.toString(), mode: FileMode.append);

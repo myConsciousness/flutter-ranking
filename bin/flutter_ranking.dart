@@ -6,6 +6,8 @@ import 'package:flutter_ranking/ranking_type.dart';
 import 'package:intl/intl.dart';
 
 void main(List<String> arguments) async {
+  final now = DateTime.now().toUtc();
+
   final rankingType = RankingType.valueOf(
     Platform.environment['RANKING_TYPE'] ?? '',
   );
@@ -15,7 +17,6 @@ void main(List<String> arguments) async {
     maxResults: rankingType.maxResults,
   );
 
-  final now = DateTime.now().toUtc();
   final today = DateFormat('yyyy-MM-dd').format(now);
 
   final historyFolder = Directory('./history/${rankingType.fileName}/$today');
@@ -46,9 +47,7 @@ void main(List<String> arguments) async {
       now,
     );
 
-    writer.writeMatrics(
-      rankingType,
-      packages,
-    );
+    writer.writeMatrics(packages);
+    writer.writeMatricsEachOwners(now);
   }
 }

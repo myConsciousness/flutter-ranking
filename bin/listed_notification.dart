@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
 Future<void> main(List<String> args) async {
-  final Map<String, dynamic> latestMatrics = _reverse(
-    jsonDecode(File('matrics/__latest__.json').readAsStringSync()),
+  final Map<String, dynamic> latestMatrics = jsonDecode(
+    File('matrics/__latest__.json').readAsStringSync(),
   );
 
   final notifiedOwnersFile = File('./history/notified_owners.json');

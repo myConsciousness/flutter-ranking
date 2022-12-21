@@ -39,7 +39,8 @@ Future<void> main(List<String> args) async {
         );
 
         final tweet = await _twitter.tweets.createTweet(
-          text: '''Congratulations @test! ${_getSentence(listedPackageNames)}
+          text:
+              '''Congratulations @${ownerInfo.key}! ${_getSentence(listedPackageNames)}
 Thanks for your great work for #Flutter community!
 
 github.com/myConsciousness/flutter-ranking

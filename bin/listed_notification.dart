@@ -14,9 +14,10 @@ Future<void> main(List<String> args) async {
     notifiedOwnersFile.readAsStringSync(),
   );
 
+  int count = 0;
   final latestMatricsEntries = latestMatrics.entries;
   for (int i = latestMatricsEntries.length - 1; i >= 0; i--) {
-    if (((latestMatricsEntries.length - 1) - i) >= 2) {
+    if (count >= 2) {
       break;
     }
 
@@ -54,6 +55,8 @@ github.com/myConsciousness/flutter-ranking
         print(tweet);
 
         notifiedOwners[ownerInfo.key] = listedPackageNames;
+
+        count++;
       }
     }
   }

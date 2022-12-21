@@ -31,7 +31,7 @@ Currently, the top ${_getPackageCount(type)} packages are listed in this ranking
 > **Notification:**</br>
 > Last Updated (UTC): ${now.toUtc().toIso8601String()}
 
-## ${_getH2Title(type)} 🎉🎉
+## 🎉🎉 ${_getH2Title(type)} 🎉🎉
 
 ''';
 

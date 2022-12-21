@@ -19,13 +19,13 @@ jobs:
       - name: Build Flutter Ranking
         run: dart run
         env:
-          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          GITHUB_BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
           RANKING_TYPE: all
 
       - name: Build Widget Ranking
         run: dart run
         env:
-          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          GITHUB_BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
           RANKING_TYPE: only_flutter_widget
 
       - name: Build Dart Ranking

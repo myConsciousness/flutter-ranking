@@ -14,17 +14,20 @@ Future<void> main(List<String> args) async {
     notifiedOwnersFile.readAsStringSync(),
   );
 
-  int count = 0;
-  latestMatrics.forEach((owner, packages) async {
-    if (count >= 2) {
-      return;
+  final latestMatricsEntries = latestMatrics.entries;
+  for (int i = latestMatricsEntries.length - 1; i >= 0; i--) {
+    if (((latestMatricsEntries.length - 1) - i) >= 2) {
+      break;
     }
 
-    if (notifiedOwners.containsKey(owner)) {
+    final MapEntry<String, dynamic> ownerInfo =
+        latestMatricsEntries.elementAt(i);
+
+    if (notifiedOwners.containsKey(ownerInfo.key)) {
       //
     } else {
       final githubUserResponse = await get(
-        Uri.https('api.github.com', '/users/$owner'),
+        Uri.https('api.github.com', '/users/${ownerInfo.key}'),
         headers: {
           'Authorization':
               'Bearer ${Platform.environment['GITHUB_BEARER_TOKEN']}'
@@ -36,24 +39,24 @@ Future<void> main(List<String> args) async {
 
       if (twitterUser != null) {
         final listedPackageNames = _getNewListedPackages(
-          packages: latestMatrics[owner],
+          packages: latestMatrics[ownerInfo.key],
         );
 
-        await _twitter.tweets.createTweet(
+        final tweet = await _twitter.tweets.createTweet(
           text:
               '''Congratulations @kato__shinya! ${_getSentence(listedPackageNames)}
 Thanks for your great work for #Flutter community!
 
-https://github.com/myConsciousness/flutter-ranking
+github.com/myConsciousness/flutter-ranking
 ''',
         );
 
-        notifiedOwners[owner] = listedPackageNames;
+        print(tweet);
 
-        count++;
+        notifiedOwners[ownerInfo.key] = listedPackageNames;
       }
     }
-  });
+  }
 
   notifiedOwnersFile.writeAsStringSync(
     jsonEncode(notifiedOwners),
@@ -77,9 +80,6 @@ TwitterApi get _twitter => TwitterApi(
       ),
     );
 
-Map<String, dynamic> _reverse(Map<String, dynamic> map) =>
-    {for (var e in map.entries) e.value: e.key};
-
 List<String> _getNewListedPackages({
   required Map<String, dynamic> packages,
   Map<String, dynamic> notifiedPackages = const {},
@@ -98,7 +98,7 @@ List<String> _getNewListedPackages({
 String _getSentence(final List<String> packageNames) {
   if (packageNames.length > 1) {
     if (packageNames.length > 3) {
-      return 'Your packages ${packageNames[0]}, ${packageNames[1]}, ${packageNames[2]} are listed in #FlutterRanking! 👑✨';
+      return 'Your packages ${packageNames[0]}, ${packageNames[1]}, ${packageNames[2]}, plus ${packageNames.length - 3} more are listed in #FlutterRanking! 👑✨';
     }
 
     return 'Your packages ${packageNames.join(', ')} are listed in #FlutterRanking! 👑✨';

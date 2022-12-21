@@ -24,6 +24,9 @@ Future<List<Package>> getListedPackages({
       ),
     );
 
+    print(searchResults.statusCode);
+    print(searchResults.body);
+
     final searchResultsJson = jsonDecode(searchResults.body);
 
     for (final result in searchResultsJson['packages']) {

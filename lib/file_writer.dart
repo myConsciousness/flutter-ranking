@@ -58,7 +58,7 @@ void writeResultFile(
       TableRecord()
         ..addValue('**$rank**')
         ..addValue(
-            '![${package.owner}](${package.ownerAvatarUrl})</br>[@${package.owner}](https://github.com/${package.owner})')
+            '<img src="${package.ownerAvatarUrl}" width="100" height="100"></br>[@${package.owner}](https://github.com/${package.owner})')
         ..addValue(
             '[${package.name}](https://pub.dev/packages/${package.name})')
         ..addValue(package.description)

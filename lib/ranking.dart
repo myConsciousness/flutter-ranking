@@ -94,7 +94,7 @@ Future<List<Package>> getListedPackages({
         repositoryJson['stargazers_count'],
         repositoryJson['forks_count'],
         repositoryJson['owner']['login'],
-        repository['owner']['avatar_url'],
+        repositoryJson['owner']['avatar_url'],
         repositoryJson['open_issues_count'],
         publisher['publisherId'] ?? '',
         license['spdx_id'],

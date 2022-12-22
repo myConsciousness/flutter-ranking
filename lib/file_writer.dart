@@ -180,6 +180,8 @@ void writeMetricsEachOwners(final DateTime now) {
 
 Map<String, dynamic> _getMetrics(final int rank, final Package package) => {
       'rank': rank,
+      'description': package.description,
+      'version': package.version,
       'repository': package.repositoryUrl,
       'popularity': package.popularity,
       'like_count': package.likeCount,
@@ -187,6 +189,8 @@ Map<String, dynamic> _getMetrics(final int rank, final Package package) => {
       'fork_count': package.forkCount,
       'issue_count': package.issueCount,
       'publisher': package.publisher,
+      'license': package.license,
+      'updated_at': package.updatedAt.toUtc().toIso8601String()
     };
 
 void _write(final File file, final Record record) =>

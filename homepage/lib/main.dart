@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '✨👑 Flutter Ranking 👑✨',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
       ),
@@ -46,7 +49,32 @@ class _HomepageState extends State<Homepage> {
                   return const CircularProgressIndicator();
                 }
 
-                return SelectableText(snapshot.data.body);
+                final Map<String, dynamic> metrics = jsonDecode(
+                  snapshot.data.body,
+                );
+
+                final ranking = <Map<String, dynamic>>[];
+                metrics.forEach((owner, packages) {
+                  (packages as Map<String, dynamic>)
+                      .forEach((packageName, packageInfo) {
+                    ranking.add({
+                      'owner': owner,
+                      'package_name': packageName,
+                      ...packageInfo
+                    });
+                  });
+                });
+
+                ranking.sort((m1, m2) => m1['rank'].compareTo(m2['rank']));
+
+                return ListView.builder(
+                  itemCount: ranking.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      child: Text(ranking[index].toString()),
+                    );
+                  },
+                );
               },
             ),
           ),

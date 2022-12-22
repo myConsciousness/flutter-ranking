@@ -10,6 +10,7 @@ class Package {
     this.starCount,
     this.forkCount,
     this.owner,
+    this.ownerAvatarUrl,
     this.issueCount,
     this.publisher,
     this.license,
@@ -42,6 +43,9 @@ class Package {
 
   /// The owner in GitHub repository.
   final String owner;
+
+  /// The avatar url in GitHub.
+  final String ownerAvatarUrl;
 
   /// The issue count.
   final int issueCount;

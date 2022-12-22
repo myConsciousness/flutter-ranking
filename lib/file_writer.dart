@@ -7,56 +7,21 @@ import 'package:flutter_ranking/ranking_type.dart';
 import 'package.dart';
 import 'record.dart';
 import 'table_record.dart';
-import 'tsv_record.dart';
 
-void writeHistoryFile(
-  final File file,
-  final List<Package> packages,
-  final DateTime now,
-) {
-  _write(
-    file,
-    TsvRecord()
-      ..addValue('No.')
-      ..addValue('Name')
-      ..addValue('Description')
-      ..addValue('Version')
-      ..addValue('Popularity')
-      ..addValue('Likes')
-      ..addValue('Stars')
-      ..addValue('Forks')
-      ..addValue('Issues')
-      ..addValue('Owner')
-      ..addValue('Publisher')
-      ..addValue('License')
-      ..addValue('Last Commit')
-      ..addValue('Repository URL'),
-  );
-
-  int rank = 1;
-  for (final package in packages) {
-    _write(
-      file,
-      TsvRecord()
-        ..addValue('$rank')
-        ..addValue(package.name)
-        ..addValue(package.description)
-        ..addValue(package.version)
-        ..addValue('${package.popularity}')
-        ..addValue('${package.likeCount}')
-        ..addValue('${package.starCount}')
-        ..addValue('${package.forkCount}')
-        ..addValue('${package.issueCount}')
-        ..addValue(package.owner)
-        ..addValue(package.publisher)
-        ..addValue(package.license)
-        ..addValue(package.updatedAt.toUtc().toIso8601String())
-        ..addValue(package.repositoryUrl),
-    );
-
-    rank++;
-  }
-}
+final _tableLayout = TableRecord()
+  ..addValue('No.')
+  ..addValue('Owner')
+  ..addValue('Name')
+  ..addValue('Description')
+  ..addValue('Version')
+  ..addValue('Popularity')
+  ..addValue('Likes')
+  ..addValue('Stars')
+  ..addValue('Forks')
+  ..addValue('Issues')
+  ..addValue('Publisher')
+  ..addValue('License')
+  ..addValue('Last Commit');
 
 void writeResultFile(
   final RankingType type,
@@ -66,29 +31,13 @@ void writeResultFile(
 ) {
   file.writeAsStringSync(getTitle(type, now));
 
-  _write(
-    file,
-    TableRecord()
-      ..addValue('No.')
-      ..addValue('Name')
-      ..addValue('Description')
-      ..addValue('Version')
-      ..addValue('Popularity')
-      ..addValue('Likes')
-      ..addValue('Stars')
-      ..addValue('Forks')
-      ..addValue('Issues')
-      ..addValue('Owner')
-      ..addValue('Publisher')
-      ..addValue('License')
-      ..addValue('Last Commit'),
-  );
+  _write(file, _tableLayout);
 
   _write(
     file,
     TableRecord()
       ..addValue('---')
-      ..addValue('---')
+      ..addValue(':---:')
       ..addValue('---')
       ..addValue('---')
       ..addValue('---')
@@ -109,6 +58,8 @@ void writeResultFile(
       TableRecord()
         ..addValue('**$rank**')
         ..addValue(
+            '![${package.owner}](${package.ownerAvatarUrl})</br>[@${package.owner}](https://github.com/${package.owner})')
+        ..addValue(
             '[${package.name}](https://pub.dev/packages/${package.name})')
         ..addValue(package.description)
         ..addValue(
@@ -119,7 +70,6 @@ void writeResultFile(
         ..addValue('${package.starCount}')
         ..addValue('${package.forkCount}')
         ..addValue('[${package.issueCount}](${package.repositoryUrl}/issues)')
-        ..addValue('[@${package.owner}](https://github.com/${package.owner})')
         ..addValue(
             '[${package.publisher}](https://pub.dev/publishers/${package.publisher}/packages)')
         ..addValue(package.license)
@@ -131,9 +81,10 @@ void writeResultFile(
 }
 
 void writeMetrics(
+  final RankingType type,
   final List<Package> packages,
 ) {
-  final latestMetricsFile = File('./metrics/__latest__.json');
+  final latestMetricsFile = File('./metrics/${type.fileName}/__latest__.json');
   final Map<String, dynamic> metrics = jsonDecode(
     latestMetricsFile.readAsStringSync(),
   );
@@ -152,14 +103,17 @@ void writeMetrics(
   latestMetricsFile.writeAsStringSync(jsonEncode(metrics));
 }
 
-void writeMetricsEachOwners(final DateTime now) {
-  final latestMetricsFile = File('./metrics/__latest__.json');
+void writeMetricsEachOwners(
+  final RankingType type,
+  final DateTime now,
+) {
+  final latestMetricsFile = File('./metrics/${type.fileName}/__latest__.json');
   final Map<String, dynamic> latestMetrics = jsonDecode(
     latestMetricsFile.readAsStringSync(),
   );
 
   latestMetrics.forEach((owner, packages) {
-    final ownerFile = File('./metrics/$owner.json');
+    final ownerFile = File('./metrics/${type.fileName}/$owner.json');
 
     if (ownerFile.existsSync()) {
       final ownerJson = jsonDecode(ownerFile.readAsStringSync());
@@ -180,6 +134,7 @@ void writeMetricsEachOwners(final DateTime now) {
 
 Map<String, dynamic> _getMetrics(final int rank, final Package package) => {
       'rank': rank,
+      'owner_avatar_url': package.ownerAvatarUrl,
       'description': package.description,
       'version': package.version,
       'repository': package.repositoryUrl,

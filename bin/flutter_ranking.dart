@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter_ranking/file_writer.dart' as writer;
 import 'package:flutter_ranking/ranking.dart' as ranking;
 import 'package:flutter_ranking/ranking_type.dart';
-import 'package:intl/intl.dart';
 
 void main(List<String> arguments) async {
   final now = DateTime.now().toUtc();
@@ -17,27 +16,15 @@ void main(List<String> arguments) async {
     maxResults: rankingType.maxResults,
   );
 
-  final today = DateFormat('yyyy-MM-dd').format(now);
-
-  final historyFolder = Directory('./history/${rankingType.fileName}/$today');
-  if (!historyFolder.existsSync()) {
-    historyFolder.createSync(recursive: true);
-  }
-
-  writer.writeHistoryFile(
-    File(
-      './history/${rankingType.fileName}/$today/${now.toUtc().toIso8601String()}.tsv',
-    ),
-    packages,
-    now,
-  );
-
   writer.writeResultFile(
     rankingType,
     File('./results/${rankingType.fileName}.md'),
     packages,
     now,
   );
+
+  writer.writeMetrics(rankingType, packages);
+  writer.writeMetricsEachOwners(rankingType, now);
 
   if (rankingType == RankingType.all) {
     writer.writeResultFile(
@@ -46,8 +33,5 @@ void main(List<String> arguments) async {
       packages,
       now,
     );
-
-    writer.writeMetrics(packages);
-    writer.writeMetricsEachOwners(now);
   }
 }

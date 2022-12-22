@@ -71,7 +71,10 @@ class _HomepageState extends State<Homepage> {
                   itemCount: ranking.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
-                      child: Text(ranking[index].toString()),
+                      child: ListTile(
+                        leading: Text(ranking[index]['owner']),
+                        title: Text(ranking[index]['package_name']),
+                      ),
                     );
                   },
                 );

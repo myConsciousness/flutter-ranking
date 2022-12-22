@@ -6,10 +6,10 @@ import 'package:twitter_api_v2/twitter_api_v2.dart';
 
 Future<void> main(List<String> args) async {
   final Map<String, dynamic> latestMetrics = jsonDecode(
-    File('metrics/__latest__.json').readAsStringSync(),
+    File('metrics/flutter/__latest__.json').readAsStringSync(),
   );
 
-  final notifiedOwnersFile = File('./history/notified_owners.json');
+  final notifiedOwnersFile = File('./notified_owners.json');
   final Map<String, dynamic> notifiedOwners = jsonDecode(
     notifiedOwnersFile.readAsStringSync(),
   );

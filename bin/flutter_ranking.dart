@@ -47,7 +47,7 @@ void main(List<String> arguments) async {
       now,
     );
 
-    writer.writeMatrics(packages);
-    writer.writeMatricsEachOwners(now);
+    writer.writeMetrics(packages);
+    writer.writeMetricsEachOwners(now);
   }
 }

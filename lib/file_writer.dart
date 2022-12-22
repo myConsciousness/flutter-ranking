@@ -130,40 +130,40 @@ void writeResultFile(
   }
 }
 
-void writeMatrics(
+void writeMetrics(
   final List<Package> packages,
 ) {
-  final latestMatricsFile = File('./matrics/__latest__.json');
-  final Map<String, dynamic> matrics = jsonDecode(
-    latestMatricsFile.readAsStringSync(),
+  final latestMetricsFile = File('./metrics/__latest__.json');
+  final Map<String, dynamic> metrics = jsonDecode(
+    latestMetricsFile.readAsStringSync(),
   );
 
   int rank = 1;
   for (final package in packages) {
-    if (matrics.containsKey(package.owner)) {
-      matrics[package.owner][package.name] = _getMatrics(rank, package);
+    if (metrics.containsKey(package.owner)) {
+      metrics[package.owner][package.name] = _getMetrics(rank, package);
     } else {
-      matrics[package.owner] = {package.name: _getMatrics(rank, package)};
+      metrics[package.owner] = {package.name: _getMetrics(rank, package)};
     }
 
     rank++;
   }
 
-  latestMatricsFile.writeAsStringSync(jsonEncode(matrics));
+  latestMetricsFile.writeAsStringSync(jsonEncode(metrics));
 }
 
-void writeMatricsEachOwners(final DateTime now) {
-  final latestMatricsFile = File('./matrics/__latest__.json');
-  final Map<String, dynamic> latestMatrics = jsonDecode(
-    latestMatricsFile.readAsStringSync(),
+void writeMetricsEachOwners(final DateTime now) {
+  final latestMetricsFile = File('./metrics/__latest__.json');
+  final Map<String, dynamic> latestMetrics = jsonDecode(
+    latestMetricsFile.readAsStringSync(),
   );
 
-  latestMatrics.forEach((owner, packages) {
-    final ownerFile = File('./matrics/$owner.json');
+  latestMetrics.forEach((owner, packages) {
+    final ownerFile = File('./metrics/$owner.json');
 
     if (ownerFile.existsSync()) {
       final ownerJson = jsonDecode(ownerFile.readAsStringSync());
-      ownerJson[now.toIso8601String()] = latestMatrics[owner];
+      ownerJson[now.toIso8601String()] = latestMetrics[owner];
 
       ownerFile.writeAsStringSync(jsonEncode(ownerJson));
     } else {
@@ -171,14 +171,14 @@ void writeMatricsEachOwners(final DateTime now) {
 
       ownerFile.writeAsStringSync(
         jsonEncode(
-          {now.toIso8601String(): latestMatrics[owner]},
+          {now.toIso8601String(): latestMetrics[owner]},
         ),
       );
     }
   });
 }
 
-Map<String, dynamic> _getMatrics(final int rank, final Package package) => {
+Map<String, dynamic> _getMetrics(final int rank, final Package package) => {
       'rank': rank,
       'repository': package.repositoryUrl,
       'popularity': package.popularity,

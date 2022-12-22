@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart';
 
 Future<void> main(List<String> args) async {
-  final Map<String, dynamic> latestMatrics = jsonDecode(
-    File('matrics/__latest__.json').readAsStringSync(),
+  final Map<String, dynamic> latestMetrics = jsonDecode(
+    File('metrics/__latest__.json').readAsStringSync(),
   );
 
   final notifiedOwnersFile = File('./history/notified_owners.json');
@@ -14,10 +14,10 @@ Future<void> main(List<String> args) async {
     notifiedOwnersFile.readAsStringSync(),
   );
 
-  final latestMatricsEntries = latestMatrics.entries;
-  for (int i = latestMatricsEntries.length - 1; i >= 0; i--) {
+  final latestMetricsEntries = latestMetrics.entries;
+  for (int i = latestMetricsEntries.length - 1; i >= 0; i--) {
     final MapEntry<String, dynamic> ownerInfo =
-        latestMatricsEntries.elementAt(i);
+        latestMetricsEntries.elementAt(i);
 
     if (notifiedOwners.containsKey(ownerInfo.key)) {
       //
@@ -35,7 +35,7 @@ Future<void> main(List<String> args) async {
 
       if (twitterUser != null) {
         final listedPackageNames = _getNewListedPackages(
-          packages: latestMatrics[ownerInfo.key],
+          packages: latestMetrics[ownerInfo.key],
         );
 
         final tweet = await _twitter.tweets.createTweet(

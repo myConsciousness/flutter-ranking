@@ -3,7 +3,7 @@ name: Notify Listed Owners
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 */2 * * *'
+    - cron: '55 */2 * * *'
 
 jobs:
   build:

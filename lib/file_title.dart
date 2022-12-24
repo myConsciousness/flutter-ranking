@@ -60,9 +60,9 @@ String _getH2Title(final RankingType type) {
 String _getPackageCount(final RankingType type) {
   switch (type) {
     case RankingType.all:
-      return '1,024';
+      return '900';
     case RankingType.onlyFlutterWidget:
     case RankingType.excludeFlutterWidget:
-      return '512';
+      return '500';
   }
 }

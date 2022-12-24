@@ -1,7 +1,7 @@
 enum RankingType {
-  all('', 1024, 'flutter'),
-  onlyFlutterWidget('-sdk:dart sdk:flutter', 512, 'flutter_widget'),
-  excludeFlutterWidget('sdk:dart sdk:flutter', 512, 'dart_only');
+  all('', 900, 'flutter'),
+  onlyFlutterWidget('-sdk:dart sdk:flutter', 500, 'flutter_widget'),
+  excludeFlutterWidget('sdk:dart sdk:flutter', 500, 'dart_only');
 
   /// The search query.
   final String query;

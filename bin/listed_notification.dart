@@ -33,12 +33,14 @@ Future<void> main(List<String> args) async {
       final githubUser = jsonDecode(githubUserResponse.body);
       final String? twitterUser = githubUser['twitter_username'];
 
-      if (twitterUser != null) {
+      final twitter = _twitter;
+
+      if (await _isActiveTwitterUser(twitter, twitterUser)) {
         final listedPackageNames = _getNewListedPackages(
           packages: latestMetrics[ownerInfo.key],
         );
 
-        final tweet = await _twitter.tweets.createTweet(
+        final tweet = await twitter.tweets.createTweet(
           text:
               '''Congratulations @${ownerInfo.key}! ${_getSentence(listedPackageNames)}
 Thanks for your great work for #Flutter community!
@@ -103,4 +105,19 @@ String _getSentence(final List<String> packageNames) {
   }
 
   return 'Your package ${packageNames[0]} is listed in #FlutterRanking! 👑✨';
+}
+
+Future<bool> _isActiveTwitterUser(
+    final TwitterApi twitter, final String? username) async {
+  if (username == null) {
+    return false;
+  }
+
+  try {
+    await twitter.users.lookupByName(username: username);
+  } catch (e) {
+    return false;
+  }
+
+  return true;
 }

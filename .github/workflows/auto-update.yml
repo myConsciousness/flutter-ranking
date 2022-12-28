@@ -36,7 +36,7 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Yay, Flutter Ranking has been updated 👑✨
+          commit_message: "[Scheduled] Yay, Flutter Ranking has been updated 👑✨" 
           commit_user_name: myConsciousness
           commit_user_email: contact@shinyakato.dev
           commit_author: myConsciousness <contact@shinyakato.dev>

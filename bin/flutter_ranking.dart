@@ -24,7 +24,7 @@ void main(List<String> arguments) async {
   );
 
   writer.writeMetrics(rankingType, packages);
-  writer.writeMetricsEachOwners(rankingType, now);
+  // writer.writeMetricsEachOwners(rankingType, now);
 
   if (rankingType == RankingType.all) {
     writer.writeResultFile(
